@@ -7,8 +7,8 @@
 **A modern, animated full stack developer portfolio built with React, GSAP, and Framer Motion.**  
 Featuring a custom cursor, GSAP page loader, ScrollTrigger animations, scramble text effects, and smooth scroll — all in one production-grade site.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-0A0A0A?style=for-the-badge&logo=vercel&logoColor=white)](https://hellowrayyandev.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rayan9476/rayyan-portfolio)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-0A0A0A?style=for-the-badge&logo=vercel&logoColor=white)](https://rayyan-portfolio-website.vercel.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rayan9476/rayyan-portfolio-website)
 
 ![Portfolio Preview](screenshot.png)
 
@@ -131,8 +131,8 @@ rayyan-portfolio/
 
 ```bash
 # Clone the repo
-git clone https://github.com/rayan9476/rayyan-portfolio.git
-cd rayyan-portfolio
+git clone https://github.com/rayan9476/rayyan-portfolio-website.git
+cd rayyan-portfolio-website
 
 # Install dependencies
 npm install
@@ -285,7 +285,7 @@ Add `public/_redirects` for React Router:
 
 **Rayyan** — Frontend & Full-Stack Developer based in Karachi, Pakistan
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-0A0A0A?style=flat-square&logo=vercel&logoColor=white)](https://hellowrayyandev.vercel.app/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-0A0A0A?style=flat-square&logo=vercel&logoColor=white)](https://rayyan-portfolio-website.vercel.app/)
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://instagram.com/rayankhan_.6)
 [![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=flat-square&logo=facebook&logoColor=white)](https://facebook.com/rayyan.khan.621020L)
 [![Email](https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:hellorayyan.dev@gmail.com)
