@@ -15,7 +15,7 @@ export default function About({ id }) {
   return (
     <section
       id={id}
-      className="relative py-24  px-5 md:px-10 lg:px-16 xl:px-24  overflow-hidden"
+      className="relative py-20 lg:py-24  px-5 md:px-10 lg:px-16 xl:px-24  overflow-hidden"
     >
       {/* Subtle top border line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />

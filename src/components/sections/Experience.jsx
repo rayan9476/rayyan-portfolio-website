@@ -326,7 +326,7 @@ export default function Experience({ id }) {
             { y: 24, opacity: 0, duration: 0.7, ease: "power3.out" },
             "<0.1",
           )
-          .from(
+          .to(
             q("[data-tag]"),
             {
               y: 12,
@@ -348,7 +348,7 @@ export default function Experience({ id }) {
     <section
       id={id}
       ref={sectionRef}
-      className="relative py-24 px-5 md:px-10 lg:px-16 xl:px-24  overflow-hidden"
+      className="relative py-20 lg:py-24 lg:py-24 px-5 md:px-10 lg:px-16 xl:px-24  overflow-hidden"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
 
@@ -446,17 +446,17 @@ export default function Experience({ id }) {
                   </p>
 
                   {/* Tags */}
-                  {/* <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {exp.tags.map((tag) => (
                       <span
                         key={tag}
                         data-tag
-                        className="text-[11px] lg:text-sm 2xl:text-base 3sxl:text-lg 3xl:text-xl font-mono tracking-wide px-3 2xl:px-4 3xl:px-5 py-1 2xl:py-1.5 3xl:py-2 rounded-full border border-white/8 text-zinc-600 transition-all duration-200 hover:text-white hover:border-white/25"
+                        className="opacity-0 text-[11px] lg:text-sm 2xl:text-base 3sxl:text-lg 3xl:text-xl font-mono tracking-wide px-3 2xl:px-4 3xl:px-5 py-1 2xl:py-1.5 3xl:py-2 rounded-full border border-white/8 text-zinc-600 transition-all duration-200 hover:text-white hover:border-white/25"
                       >
                         {tag}
                       </span>
                     ))}
-                  </div> */}
+                  </div>
                 </div>
               </div>
             ))}

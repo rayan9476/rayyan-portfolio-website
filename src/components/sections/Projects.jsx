@@ -252,13 +252,13 @@ export default function Projects({ id }) {
   return (
     <section
       id={id}
-      className="relative py-24 px-5 md:px-10 lg:px-16 xl:px-24  overflow-hidden"
+      className="relative py-20 lg:py-24 px-5 md:px-10 lg:px-16 xl:px-24  overflow-hidden"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
 
       <div className="max-w-[1400px] 2mxl:max-w-full mx-auto">
         {/* Header */}
-        <div className="mb-20">
+        <div className=" mb-16 2xl:mb-20">
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -281,7 +281,7 @@ export default function Projects({ id }) {
         </div>
 
         {/* Project cards */}
-        <div className="flex flex-col gap-32 2xl:gap-40 3xl:gap-52">
+        <div className="flex flex-col gap-20 md:gap-24 lg:gap-32 2xl:gap-40 3xl:gap-52">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
