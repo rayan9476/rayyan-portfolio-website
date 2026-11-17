@@ -280,7 +280,7 @@ export default function Hero({ id, loaded }) {
           {/* <span className="xs-s-text text-[11px] 2xl:text-[13px] 3sxl:text-lg 3xl:text-[20px] font-mono tracking-[0.25em] text-zinc-500 uppercase">
             Frontend & Full-Stack Developer
           </span> */}
-          <span className="xs-xxs-text-2 text-[10px] sm:text-[11px] 2xl:text-[13px] 3sxl:text-lg 3xl:text-[20px] font-mono tracking-[0.15em] sm:tracking-[0.25em] text-zinc-500 uppercase text-center">
+          <span className="xs-xxs-text-2 text-[8px] sm:text-[11px] 2xl:text-[13px] 3sxl:text-lg 3xl:text-[20px] font-mono tracking-[0.15em] sm:tracking-[0.25em] text-zinc-500 uppercase text-center">
             Frontend & Full-Stack Developer
           </span>
           <div className="w-10 2xl:w-14 3xl:w-20 h-px bg-gradient-to-l from-transparent to-zinc-600" />

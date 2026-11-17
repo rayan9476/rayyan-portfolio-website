@@ -446,7 +446,7 @@ export default function Experience({ id }) {
                   </p>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
+                  {/* <div className="flex flex-wrap gap-2">
                     {exp.tags.map((tag) => (
                       <span
                         key={tag}
@@ -456,7 +456,7 @@ export default function Experience({ id }) {
                         {tag}
                       </span>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ))}

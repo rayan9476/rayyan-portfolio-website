@@ -178,7 +178,7 @@ export default function PageLoader({ onComplete }) {
             Frontend & Full-Stack Developer
           </span> */}
 
-          <span className="xs-xxs-text-2 text-[10px] sm:text-[11px] 2xl:text-[13px] 2mxl:text-[15px] 3sxl:text-[18px] 3xl:text-[22px] font-mono tracking-[0.35em] sm:tracking-[0.25em] text-zinc-500 uppercase text-center">
+          <span className="xs-xxs-text-2 text-[8px] sm:text-[11px] 2xl:text-[13px] 2mxl:text-[15px] 3sxl:text-[18px] 3xl:text-[22px] font-mono tracking-[0.35em] sm:tracking-[0.25em] text-zinc-500 uppercase text-center">
             Frontend & Full-Stack Developer
           </span>
 
