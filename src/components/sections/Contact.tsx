@@ -1,4 +1,11 @@
-import { useRef, useEffect, useState } from "react";
+﻿// import { useRef, useEffect, useState } from "react";
+import {
+  useRef,
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import { motion } from "framer-motion";
 // import gsap from "gsap";
 import {
@@ -51,9 +58,13 @@ const socials = [
   },
 ];
 
+interface ScrambleHeadingProps {
+  text: string;
+}
+
 // Scramble text for heading
-function ScrambleHeading({ text }) {
-  const ref = useRef(null);
+function ScrambleHeading({ text }: ScrambleHeadingProps) {
+  const ref = useRef<HTMLSpanElement>(null);
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
   useEffect(() => {
@@ -61,7 +72,7 @@ function ScrambleHeading({ text }) {
     if (!el) return;
 
     let frame = 0;
-    let rafId;
+    let rafId = 0;
     let started = false;
     const totalFrames = 20;
 
@@ -105,21 +116,27 @@ function ScrambleHeading({ text }) {
   return <span ref={ref}>{text}</span>;
 }
 
-export default function Contact({ id }) {
-  const [formData, setFormData] = useState({
+interface ContactProps {
+  id: string;
+}
+
+type FormValues = Record<string, string>;
+
+export default function Contact({ id }: ContactProps) {
+  const [formData, setFormData] = useState<FormValues>({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [focused, setFocused] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
@@ -137,7 +154,7 @@ export default function Contact({ id }) {
 
     if (
       formData.phone.trim() &&
-      !/^[\d\s\+\-\(\)]{7,15}$/.test(formData.phone.trim())
+      !/^[\d\s+\-()]{7,15}$/.test(formData.phone.trim())
     ) {
       newErrors.phone = "Enter a valid phone number";
     }
@@ -152,12 +169,14 @@ export default function Contact({ id }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validate()) return;
 
@@ -296,8 +315,7 @@ export default function Contact({ id }) {
                   setFormData({
                     name: "",
                     email: "",
-                    service: "",
-                    budget: "",
+                    phone: "",
                     message: "",
                   });
                 }}
@@ -553,7 +571,7 @@ export default function Contact({ id }) {
           custom={5}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 2xl:gap-5 3xl:gap-6 mb-4 2xl:mb-8 3xl:mb-10"
         >
-          {socials.map((social, i) => (
+          {socials.map((social) => (
             <motion.a
               key={social.label}
               href={social.href}
@@ -592,186 +610,3 @@ export default function Contact({ id }) {
     </section>
   );
 }
-
-//  <motion.div
-//           initial={{ opacity: 0, x: 40 }}
-//           whileInView={{ opacity: 1, x: 0 }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 0.7 }}
-//           className="lg:col-span-3"
-//         >
-//           <div className="mb-12 2xl:mb-16 3xl:mb-20 max-w-2xl 2xl:max-w-3xl 3sxl:max-w-4xl 3xl:max-w-7xl mx-auto  rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 md:p-10 shadow-[0_25px_80px_rgba(0,0,0,.45)]">
-//             {submitted ? (
-//               /* Success state */
-//               <motion.div
-//                 initial={{ opacity: 0, scale: 0.9 }}
-//                 animate={{ opacity: 1, scale: 1 }}
-//                 transition={{ duration: 0.5 }}
-//                 className="flex flex-col items-center justify-center text-center py-16 gap-6"
-//               >
-//                 <div className="w-20 h-20 3xl:w-24 3xl:h-24 rounded-full bg-[#4CAF4F]/20 border border-[#4CAF4F]/40 flex items-center justify-center text-4xl">
-//                   ✓
-//                 </div>
-//                 <h3 className="text-white text-2xl 3xl:text-4xl font-bold">
-//                   Message Sent!
-//                 </h3>
-//                 <p className="text-zinc-400 max-w-sm 3xl:text-lg 3xl:max-w-md leading-7">
-//                   Thanks for reaching out. I'll review your project and get back
-//                   to you within 24 hours.
-//                 </p>
-//                 <button
-//                   onClick={() => {
-//                     setSubmitted(false);
-//                     setFormData({
-//                       name: "",
-//                       email: "",
-//                       service: "",
-//                       budget: "",
-//                       message: "",
-//                     });
-//                   }}
-//                   className="mt-2 text-[#4CAF4F] border border-[#4CAF4F]/40 hover:bg-[#4CAF4F]/10 px-6 py-3 3xl:text-2xl rounded-xl font-medium transition-all duration-300 cursor-pointer"
-//                 >
-//                   Send Another
-//                 </button>
-//               </motion.div>
-//             ) : (
-//               <form
-//                 // ref={formRef}
-//                 onSubmit={handleSubmit}
-//                 className="flex flex-col gap-5"
-//               >
-//                 {/* Name + Email row */}
-//                 <div className="grid sm:grid-cols-2 gap-5">
-//                   {[
-//                     {
-//                       name: "name",
-//                       label: "Your Name",
-//                       type: "text",
-//                       placeholder: "John Doe",
-//                     },
-//                     {
-//                       name: "email",
-//                       label: "Your Email",
-//                       type: "email",
-//                       placeholder: "john@example.com",
-//                     },
-//                     {
-//                       name: "phone",
-//                       label: "Phone / WhatsApp",
-//                       type: "tel",
-//                       placeholder: "+92 300 0000000",
-//                       fullWidth: true,
-//                     },
-//                   ].map((field) => (
-//                     <div
-//                       key={field.name}
-//                       // className="flex flex-col gap-2"
-//                       className={`flex flex-col gap-2 ${field.fullWidth ? "sm:col-span-2" : ""}`}
-//                     >
-//                       <label className="text-zinc-400 text-sm 3xl:text-lg font-medium">
-//                         {field.label}
-//                       </label>
-//                       <input
-//                         type={field.type}
-//                         name={field.name}
-//                         value={formData[field.name]}
-//                         onChange={handleChange}
-//                         onFocus={() => setFocused(field.name)}
-//                         onBlur={() => setFocused("")}
-//                         placeholder={field.placeholder}
-//                         required
-//                         className={`bg-white/5 border rounded-xl px-4 py-3.5 text-white text-sm 3xl:text-lg placeholder-zinc-600 outline-none transition-all duration-300
-//                             ${
-//                               focused === field.name
-//                                 ? "border-green-500/60 bg-[#4CAF4F]/5 shadow-[0_0_0_3px_rgba(76,175,79,0.1)]"
-//                                 : "border-white/10 hover:border-white/20"
-//                             }`}
-//                       />
-//                       {errors[field.name] && (
-//                         <p className="text-red-400 text-xs 3xl:text-base mt-1 flex items-center gap-1">
-//                           <span>⚠</span> {errors[field.name]}
-//                         </p>
-//                       )}
-//                     </div>
-//                   ))}
-//                 </div>
-
-//                 {/* Message */}
-//                 <div className="flex flex-col gap-2 overflow-hidden scrollbar-none rounded-xl">
-//                   <label className="text-zinc-400 text-sm 3xl:text-lg font-medium">
-//                     Project Details
-//                   </label>
-
-//                   <div
-//                     className={`bg-white/5  rounded-xl   border  w-full overflow-hidden
-
-//                      ${
-//                        focused === "message"
-//                          ? "border-green-500/60 bg-green-500/5 shadow-[0_0_0_3px_rgba(76,175,79,0.1)]"
-//                          : "border-white/10 hover:border-white/20"
-//                      }`}
-//                   >
-//                     <textarea
-//                       name="message"
-//                       data-lenis-prevent
-//                       value={formData.message}
-//                       onChange={handleChange}
-//                       onFocus={() => setFocused("message")}
-//                       onBlur={() => setFocused("")}
-//                       placeholder="Tell us about your project, goals, timeline..."
-//                       required
-//                       rows={5}
-//                       className={`  custom-scrollbar w-full   px-4 py-3.5 text-white text-sm 3xl:text-lg  placeholder-zinc-600 outline-none transition-all duration-300 resize-none
-//                         `}
-//                     />
-//                     {errors.message && (
-//                       <p className="text-red-400 text-xs 2xl:text-[14px] 3xl:text-base mt-1 flex items-center gap-1">
-//                         <span>⚠</span> {errors.message}
-//                       </p>
-//                     )}
-//                   </div>
-//                 </div>
-
-//                 {/* Submit */}
-//                 <motion.button
-//                   type="submit"
-//                   // whileHover={{ scale: 1.02 }}
-//                   whileTap={{ scale: 0.98 }}
-//                   disabled={loading}
-//                   className="mt-2 w-full 3xl:text-2xl bg-green-500 hover:bg-green-600 disabled:opacity-70 disabled:cursor-not-allowed text-white   font-semibold py-4 px-8 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 cursor-pointer border-none shadow-[0_4px_20px_rgba(76,175,79,0.3)] hover:shadow-[0_6px_30px_rgba(76,175,79,0.45)]"
-//                 >
-//                   {loading ? (
-//                     <>
-//                       <svg
-//                         className="animate-spin w-5 h-5"
-//                         viewBox="0 0 24 24"
-//                         fill="none"
-//                       >
-//                         <circle
-//                           className="opacity-25"
-//                           cx="12"
-//                           cy="12"
-//                           r="10"
-//                           stroke="white"
-//                           strokeWidth="4"
-//                         />
-//                         <path
-//                           className="opacity-75"
-//                           fill="white"
-//                           d="M4 12a8 8 0 018-8v8z"
-//                         />
-//                       </svg>
-//                       Sending...
-//                     </>
-//                   ) : (
-//                     <>
-//                       Send Message{" "}
-//                       <FaArrowRight size={18} className="3xl:w-7 3xl:h-7" />
-//                     </>
-//                   )}
-//                 </motion.button>
-//               </form>
-//             )}
-//           </div>
-//         </motion.div>

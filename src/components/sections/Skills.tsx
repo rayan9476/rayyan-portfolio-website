@@ -29,75 +29,25 @@ import {
   RefreshCw,
   Send,
   MonitorSmartphone,
+  type LucideIcon,
 } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
-// Scramble text animation
-function ScrambleText({ text, trigger, color }) {
-  const ref = useRef(null);
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-  useEffect(() => {
-    if (!trigger || !ref.current) return;
-
-    let frame = 0;
-    let rafId;
-    const totalFrames = 12;
-    const el = ref.current;
-
-    const animate = () => {
-      frame++;
-      const progress = frame / totalFrames;
-
-      el.textContent = text
-        .split("")
-        .map((char, i) => {
-          if (char === " ") return " ";
-          if (i / text.length < progress) return char;
-          return chars[Math.floor(Math.random() * chars.length)];
-        })
-        .join("");
-
-      if (frame < totalFrames) {
-        rafId = requestAnimationFrame(animate);
-      } else {
-        el.textContent = text;
-      }
-    };
-
-    // small delay per skill
-    const timeout = setTimeout(animate, Math.random() * 300);
-    return () => {
-      clearTimeout(timeout);
-      cancelAnimationFrame(rafId);
-    };
-  }, [trigger, text]);
-
-  return (
-    <span ref={ref} className={`font-mono ${color}`}>
-      {text}
-    </span>
-  );
+interface SkillItem {
+  name: string;
+  icon: LucideIcon;
+  level: number;
 }
 
-// Skill row with scramble
-function SkillItem({ skill, color, index, sectionVisible }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -10 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.06 }}
-      className="flex items-center gap-3 py-3 border-b border-white/5 last:border-0 group"
-    >
-      <div className="w-1 h-1 rounded-full bg-zinc-700 group-hover:bg-current transition-colors duration-300 flex-shrink-0" />
-      <ScrambleText text={skill} trigger={sectionVisible} color={color} />
-    </motion.div>
-  );
+interface SkillColumn {
+  title: string;
+  color: string;
+  glowColor: string;
+  borderColor: string;
+  skills: SkillItem[];
 }
 
-const skillColumns = [
+const skillColumns: SkillColumn[] = [
   {
     title: "Frontend",
     color: "#3B82F6",
@@ -148,9 +98,15 @@ const skillColumns = [
   },
 ];
 
+interface ProgressBarProps {
+  level: number;
+  color: string;
+  visible: boolean;
+}
+
 // Segmented level meter
-function ProgressBar({ level, color, visible }) {
-  const wrapRef = useRef(null);
+function ProgressBar({ level, color, visible }: ProgressBarProps) {
+  const wrapRef = useRef<HTMLDivElement>(null);
   const total = 10;
   const filled = Math.round(level / 10);
 
@@ -203,8 +159,15 @@ function ProgressBar({ level, color, visible }) {
   );
 }
 
+interface SkillCardProps {
+  skill: SkillItem;
+  color: string;
+  index: number;
+  sectionVisible: boolean;
+}
+
 // Single skill card
-function SkillCard({ skill, color, index, sectionVisible }) {
+function SkillCard({ skill, color, index, sectionVisible }: SkillCardProps) {
   const Icon = skill.icon;
   return (
     <motion.div
@@ -263,8 +226,12 @@ function SkillCard({ skill, color, index, sectionVisible }) {
   );
 }
 
-export default function Skills({ id }) {
-  const sectionRef = useRef(null);
+interface SkillsProps {
+  id: string;
+}
+
+export default function Skills({ id }: SkillsProps) {
+  const sectionRef = useRef<HTMLElement>(null);
   const [sectionVisible, setSectionVisible] = useState(false);
 
   useEffect(() => {

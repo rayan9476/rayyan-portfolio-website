@@ -1,14 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type MouseEvent } from "react";
 import { useApp } from "../../context/AppContext";
 import { useScrollTo } from "./useScrollTo";
 
 export function useScrollNavigation() {
   const { setIsClick, setActiveSection } = useApp();
-  const scrollTimeoutRef = useRef(null);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scrollTo = useScrollTo();
 
-  const navigateToSection = (e, target, onBeforeScroll) => {
+  const navigateToSection = (
+    e: MouseEvent<HTMLElement>,
+    target: string,
+    onBeforeScroll?: () => void,
+  ) => {
     e.preventDefault();
 
     if (onBeforeScroll) {
@@ -19,7 +23,9 @@ export function useScrollNavigation() {
     setActiveSection(target.replace("#", ""));
     scrollTo(target);
 
-    clearTimeout(scrollTimeoutRef.current);
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
 
     scrollTimeoutRef.current = setTimeout(() => {
       setIsClick(true);
@@ -27,7 +33,11 @@ export function useScrollNavigation() {
   };
 
   useEffect(() => {
-    return () => clearTimeout(scrollTimeoutRef.current);
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, []);
 
   return { navigateToSection };

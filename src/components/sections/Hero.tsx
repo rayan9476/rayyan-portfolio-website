@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, type Variants } from "framer-motion";
 import gsap from "gsap";
 import { useScrollTo } from "../hooks/useScrollTo";
 import { Download } from "lucide-react";
@@ -17,10 +17,14 @@ const floatingItems = [
 const nameLetters = "Rayyan".split("");
 
 const REVEAL_IMAGE =
-  // "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80";
   "https://ik.imagekit.io/rayyan/rayyan.png?tr=w-1200,q-80,f-auto";
 
-export default function Hero({ id, loaded }) {
+interface HeroProps {
+  id: string;
+  loaded: boolean;
+}
+
+export default function Hero({ id, loaded }: HeroProps) {
   const scrollTo = useScrollTo();
   const controls = useAnimation();
 
@@ -32,7 +36,7 @@ export default function Hero({ id, loaded }) {
   // mouse parallax on floating items
   useEffect(() => {
     const items = document.querySelectorAll(".float-item");
-    const onMove = (e) => {
+    const onMove = (e: MouseEvent) => {
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
       const dx = (e.clientX - cx) / cx;
@@ -53,15 +57,15 @@ export default function Hero({ id, loaded }) {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Cursor reveal refs
-  const revealRef = useRef(null);
-  const revealInnerRef = useRef(null);
+  const revealRef = useRef<HTMLDivElement>(null);
+  const revealInnerRef = useRef<HTMLDivElement>(null);
   const isInside = useRef(false);
   const mouse = useRef({ x: 0, y: 0 });
   const pos = useRef({ x: 0, y: 0 });
-  const rafRef = useRef(null);
+  const rafRef = useRef<number>(0);
 
   // Cursor image reveal effect
   useEffect(() => {
@@ -104,7 +108,7 @@ export default function Hero({ id, loaded }) {
       rafRef.current = requestAnimationFrame(tick);
     };
 
-    const onMouseMove = (e) => {
+    const onMouseMove = (e: MouseEvent) => {
       const rect = section.getBoundingClientRect();
       mouse.current.x = e.clientX - rect.left;
       mouse.current.y = e.clientY - rect.top;
@@ -148,7 +152,7 @@ export default function Hero({ id, loaded }) {
     };
   }, []);
 
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 50 },
     show: (i = 0) => ({
       opacity: 1,
@@ -208,7 +212,7 @@ export default function Hero({ id, loaded }) {
       </div>
 
       {/* Floating background text — much darker */}
-      {floatingItems.map((item, i) => (
+      {floatingItems.map((item) => (
         <div
           key={item.label}
           className="float-item absolute pointer-events-none select-none z-20"

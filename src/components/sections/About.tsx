@@ -1,16 +1,24 @@
-import { useRef } from "react";
 import { motion } from "framer-motion";
-import { fadeUp, slideLeft, slideRight } from "../../lib/motion";
+import { fadeUp, slideLeft } from "../../lib/motion";
 import SectionLabel from "../ui/SectionLabel";
 
-const stats = [
+interface StatItem {
+  num: string;
+  label: string;
+}
+
+const stats: StatItem[] = [
   { num: "3+", label: "Projects Built" },
   { num: "2+", label: "Tech Stacks Mastered" },
   { num: "1", label: "Internship" },
   { num: "∞", label: "Lines of Code" },
 ];
 
-export default function About({ id }) {
+interface AboutProps {
+  id: string;
+}
+
+export default function About({ id }: AboutProps) {
   // lg:py-40
   return (
     <section

@@ -1,15 +1,14 @@
-import { useState, useRef, useEffect, Suspense, lazy } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import PageLoader from "./components/loader/PageLoader";
 import CustomCursor from "./components/cursor/CustomCursor";
-import Hero from "./components/sections/Hero";
 import Lenis from "lenis";
 import HomePage from "./pages/HomePage";
 import Navbar from "./components/layout/Navbar";
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [isDesktop, setIsDesktop] = useState<boolean>(false);
 
   useEffect(() => {
     setIsDesktop(window.matchMedia("(pointer: fine)").matches);

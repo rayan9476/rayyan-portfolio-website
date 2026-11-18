@@ -1,6 +1,8 @@
-export const fadeUp = {
+import type { Variants } from "framer-motion";
+
+export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
-  show: (i = 0) => ({
+  show: (i: number = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
@@ -11,9 +13,9 @@ export const fadeUp = {
   }),
 };
 
-export const slideLeft = {
+export const slideLeft: Variants = {
   hidden: { opacity: 0, x: 60 },
-  show: (i = 0) => ({
+  show: (i: number = 0) => ({
     opacity: 1,
     x: 0,
     transition: {
@@ -24,9 +26,9 @@ export const slideLeft = {
   }),
 };
 
-export const slideRight = {
+export const slideRight: Variants = {
   hidden: { opacity: 0, x: -60 },
-  show: (i = 0) => ({
+  show: (i: number = 0) => ({
     opacity: 1,
     x: 0,
     transition: {

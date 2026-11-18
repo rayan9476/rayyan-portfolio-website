@@ -4,7 +4,7 @@
 
 # Rayyan — Developer Portfolio
 
-**A modern, animated full stack developer portfolio built with React, GSAP, and Framer Motion.**  
+**A modern, animated full stack developer portfolio built with React, TypeScript, GSAP, and Framer Motion.**  
 Featuring a custom cursor, GSAP page loader, ScrollTrigger animations, scramble text effects, and smooth scroll — all in one production-grade site.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-0A0A0A?style=for-the-badge&logo=vercel&logoColor=white)](https://rayyan-portfolio-website.vercel.app/)
@@ -47,6 +47,7 @@ Featuring a custom cursor, GSAP page loader, ScrollTrigger animations, scramble 
 | -------------------- | ------- | --------------------------------- |
 | React                | 18      | UI framework                      |
 | Vite                 | 5       | Build tool & dev server           |
+| TypeScript           | latest  | Static typing (strict mode)       |
 | Tailwind CSS         | v4      | Utility-first styling             |
 | Framer Motion        | latest  | Page animations, layoutId         |
 | GSAP + ScrollTrigger | latest  | Cursor, loader, scroll animations |
@@ -80,34 +81,35 @@ rayyan-portfolio/
 │   │   └── HeroSection.png
 │   ├── components/
 │   │   ├── cursor/
-│   │   │   └── CustomCursor.jsx     ← GSAP section-aware cursor
+│   │   │   └── CustomCursor.tsx     ← GSAP section-aware cursor
 │   │   ├── hooks/
-│   │   │   ├── useFakeScrollbar.js  ← Custom scrollbar synced to scroll position
-│   │   │   ├── useScrollNavigation.js
-│   │   │   └── useScrollTo.js       ← Lenis smooth scroll to section
+│   │   │   ├── useFakeScrollbar.ts  ← Custom scrollbar synced to scroll position
+│   │   │   ├── useScrollNavigation.ts
+│   │   │   └── useScrollTo.ts       ← Lenis smooth scroll to section
 │   │   ├── layout/
-│   │   │   ├── Footer.jsx
-│   │   │   └── Navbar.jsx           ← Fixed nav with active section detection
+│   │   │   ├── Footer.tsx
+│   │   │   └── Navbar.tsx           ← Fixed nav with active section detection
 │   │   ├── loader/
-│   │   │   └── PageLoader.jsx       ← GSAP letter reveal + split exit
+│   │   │   └── PageLoader.tsx       ← GSAP letter reveal + split exit
 │   │   ├── sections/
-│   │   │   ├── About.jsx
-│   │   │   ├── Contact.jsx
-│   │   │   ├── Experience.jsx
-│   │   │   ├── Hero.jsx
-│   │   │   ├── Projects.jsx
-│   │   │   └── Skills.jsx
+│   │   │   ├── About.tsx
+│   │   │   ├── Contact.tsx
+│   │   │   ├── Experience.tsx
+│   │   │   ├── Hero.tsx
+│   │   │   ├── Projects.tsx
+│   │   │   └── Skills.tsx
 │   │   └── ui/
-│   │       └── SectionLabel.jsx
+│   │       └── SectionLabel.tsx
 │   ├── context/
-│   │   └── AppContext.jsx
+│   │   └── AppContext.tsx
 │   ├── lib/
-│   │   └── motion.js                ← Framer Motion variants
+│   │   └── motion.ts                ← Framer Motion variants
 │   ├── pages/
-│   │   └── HomePage.jsx
-│   ├── App.jsx
+│   │   └── HomePage.tsx
+│   ├── App.tsx
 │   ├── index.css
-│   └── main.jsx
+│   ├── main.tsx
+│   └── vite-env.d.ts
 ├── .gitignore
 ├── eslint.config.js
 ├── index.html
@@ -115,7 +117,9 @@ rayyan-portfolio/
 ├── package-lock.json
 ├── README.md
 ├── screenshot.png
-└── vite.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
 ---
@@ -162,7 +166,7 @@ npm run preview
 npm install gsap framer-motion lenis react-router-dom react-icons
 
 # Dev dependencies
-npm install -D tailwindcss postcss autoprefixer @vitejs/plugin-react vite
+npm install -D tailwindcss postcss autoprefixer @vitejs/plugin-react vite typescript @types/node typescript-eslint
 ```
 
 ---
@@ -296,6 +300,6 @@ Add `public/_redirects` for React Router:
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%"/>
 
-_Built with React + Vite + Tailwind CSS + Framer Motion + GSAP + Lenis_
+_Built with React + TypeScript + Vite + Tailwind CSS + Framer Motion + GSAP + Lenis_
 
 </div>

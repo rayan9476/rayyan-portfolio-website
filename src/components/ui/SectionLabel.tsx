@@ -1,8 +1,14 @@
+interface SectionLabelProps {
+  number: string;
+  title: string;
+  color?: string;
+}
+
 export default function SectionLabel({
   number,
   title,
   color = "text-zinc-500",
-}) {
+}: SectionLabelProps) {
   return (
     <div className="flex items-center gap-3 mb-6">
       <span

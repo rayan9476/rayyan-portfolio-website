@@ -7,7 +7,25 @@ import SectionLabel from "../ui/SectionLabel";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-const projects = [
+
+interface Project {
+  id: string;
+  num: string;
+  title: string;
+  subtitlelarger: string;
+  subtitlesmaller: string;
+  desc: string;
+  video: string;
+  videoThumbnail: string;
+  tags: string[];
+  color: string;
+  glow: string;
+  live: string;
+  github: string;
+  align: string;
+}
+
+const projects: Project[] = [
   {
     id: "havenly",
     num: "01",
@@ -67,10 +85,15 @@ const projects = [
   },
 ];
 
-function ProjectCard({ project, index }) {
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+}
+
+function ProjectCard({ project, index }: ProjectCardProps) {
   const isRight = project.align === "right";
 
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Track this card's own scroll progress — contained to itself
   const { scrollYProgress } = useScroll({
@@ -248,7 +271,11 @@ function ProjectCard({ project, index }) {
   );
 }
 
-export default function Projects({ id }) {
+interface ProjectsProps {
+  id: string;
+}
+
+export default function Projects({ id }: ProjectsProps) {
   return (
     <section
       id={id}

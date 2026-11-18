@@ -110,16 +110,26 @@
 //   }, [bgColor, thumbRatio, fadeDelay, thumbRef]);
 // }
 
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, type RefObject } from "react";
 import gsap from "gsap";
+import type Lenis from "lenis";
 
-export function useFakeScrollbar(thumbRef, options = {}) {
+interface FakeScrollbarOptions {
+  bgColor?: string | null;
+  thumbRatio?: number;
+  fadeDelay?: number;
+}
+
+export function useFakeScrollbar(
+  thumbRef: RefObject<HTMLDivElement | null>,
+  options: FakeScrollbarOptions = {}
+) {
   const { bgColor = null, thumbRatio = 0.12, fadeDelay = 100 } = options;
 
   useLayoutEffect(() => {
-    let lenis;
-    let rafId;
-    let fadeTimeout;
+    let lenis: Lenis | undefined;
+    let rafId: number;
+    let fadeTimeout: ReturnType<typeof setTimeout>;
     let tries = 0;
 
     let isVisible = false;
@@ -153,7 +163,7 @@ export function useFakeScrollbar(thumbRef, options = {}) {
       gsap.set(thumb, { height: thumbHeight });
     };
 
-    const updateThumb = ({ scroll, limit }) => {
+    const updateThumb = ({ scroll, limit }: { scroll: number; limit: number }) => {
       if (!thumb || !limit) return;
 
       const progress = gsap.utils.clamp(0, 1, scroll / limit);
@@ -193,6 +203,7 @@ export function useFakeScrollbar(thumbRef, options = {}) {
       setThumbHeight();
 
       rafId = requestAnimationFrame(() => {
+        if (!lenis) return;
         updateThumb({ scroll: lenis.scroll, limit: lenis.limit });
         lenis.on("scroll", updateThumb);
       });

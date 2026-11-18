@@ -1,3 +1,4 @@
+import type React from "react";
 import { motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { useScrollNavigation } from "../hooks/useScrollNavigation";
@@ -5,7 +6,7 @@ import { useScrollNavigation } from "../hooks/useScrollNavigation";
 export default function Footer() {
   const { navigateToSection } = useScrollNavigation();
 
-  const handleClick = (e, target) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>, target: string) => {
     navigateToSection(e, target);
   };
 

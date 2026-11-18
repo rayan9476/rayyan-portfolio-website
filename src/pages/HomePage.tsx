@@ -9,8 +9,12 @@ const Contact = lazy(() => import("../components/sections/Contact"));
 const Footer = lazy(() => import("../components/layout/Footer"));
 import { useFakeScrollbar } from "../components/hooks/useFakeScrollbar";
 
-export default function HomePage({ loaded }) {
-  const thumbRef = useRef(null);
+interface HomePageProps {
+  loaded: boolean;
+}
+
+export default function HomePage({ loaded }: HomePageProps) {
+  const thumbRef = useRef<HTMLDivElement>(null);
 
   useFakeScrollbar(thumbRef, {
     bgColor: "#4CAF4F",

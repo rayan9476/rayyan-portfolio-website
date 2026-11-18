@@ -1,14 +1,18 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
-export default function PageLoader({ onComplete }) {
-  const loaderRef = useRef(null);
-  const lettersRef = useRef([]);
-  const subtitleRef = useRef(null);
-  const lineRef = useRef(null);
-  const leftPanelRef = useRef(null);
-  const rightPanelRef = useRef(null);
-  const dotsRef = useRef([]);
+interface PageLoaderProps {
+  onComplete?: () => void;
+}
+
+export default function PageLoader({ onComplete }: PageLoaderProps) {
+  const loaderRef = useRef<HTMLDivElement | null>(null);
+  const lettersRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const subtitleRef = useRef<HTMLDivElement | null>(null);
+  const lineRef = useRef<HTMLDivElement | null>(null);
+  const leftPanelRef = useRef<HTMLDivElement | null>(null);
+  const rightPanelRef = useRef<HTMLDivElement | null>(null);
+  const dotsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const name = "RAYYAN";
 
@@ -129,7 +133,9 @@ export default function PageLoader({ onComplete }) {
           {name.split("").map((letter, i) => (
             <span
               key={i}
-              ref={(el) => (lettersRef.current[i] = el)}
+              ref={(el) => {
+                lettersRef.current[i] = el;
+              }}
               className="font-display text-[clamp(52px,10vw,120px)] 2xl:text-[150px] 2mxl:text-[180px] 3sxl:text-[220px] 3xl:text-[260px] text-white leading-none tracking-[0.08em]"
             >
               {letter}
@@ -149,7 +155,9 @@ export default function PageLoader({ onComplete }) {
           {[0, 1, 2].map((_, i) => (
             <div
               key={i}
-              ref={(el) => (dotsRef.current[i] = el)}
+              ref={(el) => {
+                dotsRef.current[i] = el;
+              }}
               className="w-1 h-1 2xl:w-1.5 2xl:h-1.5 3xl:w-2 3xl:h-2 rounded-full flex-shrink-0"
               style={{
                 background: ["#3B82F6", "#8B5CF6", "#22C55E"][i],

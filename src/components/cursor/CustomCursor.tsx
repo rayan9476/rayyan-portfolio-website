@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 // section accent colors — matched by section id
-const SECTION_COLORS = {
+const SECTION_COLORS: Record<string, string> = {
   home: "#F5F5F5",
   about: "#F5F5F5",
   skills: "#3B82F6", // blue
@@ -13,10 +13,10 @@ const SECTION_COLORS = {
 };
 
 export default function CustomCursor() {
-  const crosshairRef = useRef(null);
-  const ringRef = useRef(null);
-  const labelRef = useRef(null);
-  const isProjectHover = useRef(false);
+  const crosshairRef = useRef<HTMLDivElement | null>(null);
+  const ringRef = useRef<HTMLDivElement | null>(null);
+  const labelRef = useRef<HTMLDivElement | null>(null);
+  const isProjectHover = useRef<boolean>(false);
 
   useEffect(() => {
     const crosshair = crosshairRef.current;
@@ -25,8 +25,7 @@ export default function CustomCursor() {
 
     const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    let lastTarget = null;
-    let currentColor = "#F5F5F5";
+    let lastTarget: EventTarget | null = null;
 
     // track active section for color
     const sectionObserver = new IntersectionObserver(
@@ -35,7 +34,6 @@ export default function CustomCursor() {
           if (entry.isIntersecting) {
             const id = entry.target.id;
             const color = SECTION_COLORS[id] || "#F5F5F5";
-            currentColor = color;
             gsap.to(ring, {
               borderColor: color,
               duration: 0.4,
@@ -56,7 +54,7 @@ export default function CustomCursor() {
       .querySelectorAll("section[id]")
       .forEach((s) => sectionObserver.observe(s));
 
-    const onMouseMove = (e) => {
+    const onMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
 
@@ -66,7 +64,7 @@ export default function CustomCursor() {
 
       if (e.target !== lastTarget) {
         lastTarget = e.target;
-        let el = e.target;
+        let el = e.target as HTMLElement | null;
         let isHoverable = false;
         let isProject = false;
 

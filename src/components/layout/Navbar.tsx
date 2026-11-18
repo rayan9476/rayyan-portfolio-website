@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useScrollTo } from "../hooks/useScrollTo";
 import { useApp } from "../../context/AppContext";
 import { useScrollNavigation } from "../hooks/useScrollNavigation";
 
-const navLinks = [
+interface NavLinkItem {
+  num: string;
+  label: string;
+  target: string;
+}
+
+const navLinks: NavLinkItem[] = [
   { num: "01", label: "About", target: "#about" },
   { num: "02", label: "Skills", target: "#skills" },
   { num: "03", label: "Work", target: "#projects" },
@@ -12,11 +17,14 @@ const navLinks = [
   { num: "05", label: "Contact", target: "#contact" },
 ];
 
-export default function Navbar({ loaded }) {
+interface NavbarProps {
+  loaded: boolean;
+}
+
+export default function Navbar({ loaded }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isClick, setIsClick, activeSection, setActiveSection } = useApp();
-  const scrollTo = useScrollTo();
+  const { isClick, activeSection, setActiveSection } = useApp();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -49,11 +57,11 @@ export default function Navbar({ loaded }) {
     return () => {
       sections.forEach((section) => observer.unobserve(section));
     };
-  }, [loaded, isClick]);
+  }, [loaded, isClick, setActiveSection]);
 
   const { navigateToSection } = useScrollNavigation();
 
-  const handleClick = (e, target) => {
+  const handleClick = (e: MouseEvent<HTMLElement>, target: string) => {
     navigateToSection(e, target, () => {
       setMenuOpen(false);
     });
